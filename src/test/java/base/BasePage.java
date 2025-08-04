@@ -1,0 +1,70 @@
+package base;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import pageObjects.CartPage;
+import utils.ConfigLoader;
+
+public class BasePage {
+    public WebDriver driver;
+
+    @FindBy(id = "react-burger-menu-btn")
+    protected WebElement hamburgerMenuBtn;
+    @FindBy(linkText = "Logout")
+    private WebElement logoutBtn;
+    @FindBy(id = "about_sidebar_link")
+    private WebElement aboutBtn;
+    @FindBy(className = "app_logo")
+    private WebElement websiteLogo;
+    @FindBy(className = "shopping_cart_link")
+    private WebElement cartLink;
+    @FindBy(className = "shopping_cart_badge")
+    private WebElement cartBadge;
+    @FindBy(className = "footer_copy")
+    private WebElement footerMessage;
+
+    public final String SOCIAL_MEDIA_URL_PREFIX = "//li//a[contains(@href,'";
+    public final String SOCIAL_MEDIA_URL_SUFFIX = ")]";
+
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public void clickHamburgerMenuBtn() {
+        hamburgerMenuBtn.click();
+    }
+
+    public void clickLogoutButton() {
+        logoutBtn.click();
+    }
+
+    public void clickAboutButton() {
+        aboutBtn.click();
+    }
+
+    public CartPage clickCartButton() {
+        cartLink.click();
+        return new CartPage(driver);
+    }
+
+    public int getCartQuantity() {
+        return Integer.parseInt(cartBadge.getText());
+    }
+
+    public String getWebsiteLogoText() {
+        return websiteLogo.getText();
+    }
+
+    public WebElement getFooterLinks(String socialMediaLink) {
+        String path = SOCIAL_MEDIA_URL_PREFIX + socialMediaLink + SOCIAL_MEDIA_URL_SUFFIX;
+        return driver.findElement(By.xpath(path));
+    }
+
+    public void loadURL(String endpoint) {
+        driver.get(ConfigLoader.getInstance().getBaseUrl() + endpoint);
+    }
+}
