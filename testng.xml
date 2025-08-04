@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="SauceDemo Allure Reporting">
-    <test name="EDGE Execution">
-        <parameter name="browser" value="EDGE"/>
+    <test name="FIREFOX Execution">
+        <parameter name="browser" value="FIREFOX"/>
         <classes>
             <class name="tests.MySecondTest"/>
             <class name="tests.MyFirstTest"/>
