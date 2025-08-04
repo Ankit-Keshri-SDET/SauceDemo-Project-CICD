@@ -4,6 +4,7 @@
         <parameter name="browser" value="EDGE"/>
         <classes>
             <class name="tests.MySecondTest"/>
+            <class name="tests.MyFirstTest"/>
         </classes>
     </test>
 </suite>
